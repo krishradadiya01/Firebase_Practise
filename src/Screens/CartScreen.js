@@ -3,8 +3,12 @@ import {View, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import Clipboard from '@react-native-clipboard/clipboard';
 
-const CartScreen = () => {
+const CartScreen = props => {
   const [generalLink, setGeneralLink] = useState(null);
+
+  const onPressCrash = () => {
+    props.navigation.navigate('CrashNylitics');
+  };
 
   const buildLink = async () => {
     const link = await dynamicLinks().buildLink({
@@ -57,6 +61,10 @@ const CartScreen = () => {
 
       <TouchableOpacity style={styles.button} onPress={openLink}>
         <Text style={styles.buttonText}>Copy Deep Link</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={onPressCrash}>
+        <Text style={styles.buttonText}>Move to Crashlytics</Text>
       </TouchableOpacity>
     </View>
   );
